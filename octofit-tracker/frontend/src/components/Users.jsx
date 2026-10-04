@@ -1,4 +1,5 @@
 import ResourceList from './ResourceList.jsx'
+import { fetchCollection as fetch } from '../lib/api.js'
 
 const columns = [
   {
@@ -21,6 +22,7 @@ export default function Users() {
       title="Users"
       description="Meet the members of the Octofit community."
       endpoint="/api/users/"
+      fetcher={fetch}
       columns={columns}
     />
   )

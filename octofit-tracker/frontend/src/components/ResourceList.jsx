@@ -1,7 +1,13 @@
 import useApiCollection from '../hooks/useApiCollection.js'
 
-export default function ResourceList({ title, description, endpoint, columns }) {
-  const { items, loading, error } = useApiCollection(endpoint)
+export default function ResourceList({
+  title,
+  description,
+  endpoint,
+  fetcher,
+  columns,
+}) {
+  const { items, loading, error } = useApiCollection(endpoint, fetcher)
 
   return (
     <section className="resource-panel">

@@ -1,4 +1,5 @@
 import ResourceList from './ResourceList.jsx'
+import { fetchCollection as fetch } from '../lib/api.js'
 
 const columns = [
   {
@@ -24,6 +25,7 @@ export default function Teams() {
       title="Teams"
       description="Find a team and take on your next fitness goal together."
       endpoint="/api/teams/"
+      fetcher={fetch}
       columns={columns}
     />
   )

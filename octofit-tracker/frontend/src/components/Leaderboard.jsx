@@ -1,4 +1,5 @@
 import ResourceList from './ResourceList.jsx'
+import { fetchCollection as fetch } from '../lib/api.js'
 
 function athleteName(user) {
   if (typeof user === 'string') {
@@ -41,6 +42,7 @@ export default function Leaderboard() {
       title="Leaderboard"
       description="See how athletes and teams are progressing."
       endpoint="/api/leaderboard/"
+      fetcher={fetch}
       columns={columns}
     />
   )

@@ -1,4 +1,5 @@
 import ResourceList from './ResourceList.jsx'
+import { fetchCollection as fetch } from '../lib/api.js'
 
 const columns = [
   {
@@ -28,6 +29,7 @@ export default function Workouts() {
       title="Workouts"
       description="Browse workout ideas to support your training."
       endpoint="/api/workouts/"
+      fetcher={fetch}
       columns={columns}
     />
   )

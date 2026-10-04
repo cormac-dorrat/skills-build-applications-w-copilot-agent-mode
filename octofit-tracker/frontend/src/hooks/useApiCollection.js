@@ -1,21 +1,6 @@
 import { useEffect, useState } from 'react'
-import { API_BASE_URL } from '../lib/api.js'
 
-function getCollection(payload) {
-  if (Array.isArray(payload)) {
-    return payload
-  }
-
-  for (const key of ['results', 'data', 'items']) {
-    if (Array.isArray(payload?.[key])) {
-      return payload[key]
-    }
-  }
-
-  throw new Error('The API response did not contain a collection.')
-}
-
-export default function useApiCollection(endpoint) {
+export default function useApiCollection(endpoint, loadCollection) {
   const [items, setItems] = useState([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState('')
@@ -28,15 +13,7 @@ export default function useApiCollection(endpoint) {
       setError('')
 
       try {
-        const response = await fetch(`${API_BASE_URL}${endpoint}`, {
-          signal: controller.signal,
-        })
-
-        if (!response.ok) {
-          throw new Error(`Request failed with status ${response.status}.`)
-        }
-
-        setItems(getCollection(await response.json()))
+        setItems(await loadCollection(endpoint, controller.signal))
       } catch (requestError) {
         if (!controller.signal.aborted) {
           setItems([])
@@ -55,7 +32,7 @@ export default function useApiCollection(endpoint) {
 
     loadCollection()
     return () => controller.abort()
-  }, [endpoint])
+  }, [endpoint, loadCollection])
 
   return { items, loading, error }
 }

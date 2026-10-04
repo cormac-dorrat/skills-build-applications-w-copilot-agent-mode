@@ -1,4 +1,5 @@
 import ResourceList from './ResourceList.jsx'
+import { fetchCollection as fetch } from '../lib/api.js'
 
 function athleteName(user) {
   if (typeof user === 'string') {
@@ -52,6 +53,7 @@ export default function Activities() {
       title="Activities"
       description="Recent workouts and movement logged by the community."
       endpoint="/api/activities/"
+      fetcher={fetch}
       columns={columns}
     />
   )
